@@ -1,5 +1,6 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { FileNode } from "./quartz/components/ExplorerNode"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -26,7 +27,14 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.DesktopOnly(Component.Explorer()),
+    Component.Explorer({
+      title: "Recipes",
+      folderClickBehavior: "collapse",
+      folderDefaultState: "collapsed",
+      useSavedState: false,
+      filterFn: (node: FileNode) => false,
+      order: ["filter", "map", "sort"]
+    })
   ],
   right: [
     Component.Graph(),
